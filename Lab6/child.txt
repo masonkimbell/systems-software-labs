@@ -1,0 +1,73 @@
+//Mason Kimbell
+//Task.c
+////
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/wait.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+//returns  if integer,  if not
+int isInteger(char a){
+	if((int) a >= (int) '' && (int) a <= (int) '')
+		return ;
+	else
+		return ;
+}
+
+int main(int argc, char **argv){
+	int fd;
+	if((fd = open(argv[], O_RDONLY)) < ){
+		puts("open error");
+		exit();
+	}
+	int size = lseek(fd, , SEEK_END);
+	char b;
+	char c;
+	int o = ;
+	int o = ;
+	int childFile, parentFile;
+	umask();
+	if((childFile = open("child.txt", O_WRONLY | O_CREAT, )) < ){
+		puts("create error");
+		exit();
+	}
+	if((parentFile = open("parent.txt", O_WRONLY | O_CREAT, )) < ){
+		puts("create error");
+		exit();
+	}
+	pid_t pid;
+	if((pid = fork()) < ){
+		puts("fork error");
+		exit();
+	}
+	int i, j;
+		if(pid == ){ //child
+			for(i = ; i < size; i++){
+				lseek(fd, o, SEEK_SET);
+				read(fd, &c, );
+				if(!isInteger(c))
+					write(childFile, &c, );
+				o++;
+			}
+			_exit();
+		}else{
+			int k;
+			for(k = ; k < size * size; k++)
+				continue;
+			for(j = ; j < size; j++){
+				lseek(fd, o, SEEK_SET);
+				read(fd, &b, );
+				if(isInteger(b))
+					write(parentFile, &b, );
+				o++;
+			}
+		}
+	close(childFile);
+	close(parentFile);
+	close(fd);
+	exit();
+}
